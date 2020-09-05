@@ -1,0 +1,8 @@
+.feedback_buttons {
+  margin-bottom: 2rem;
+}
+.btn {
+  margin-inline-end: 1rem;
+  padding: 0.3rem 0.5rem;
+  font-weight: 600;
+}
