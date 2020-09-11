@@ -5,27 +5,29 @@ import { Statistics } from './Statistics/Statistics';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Section } from './Section/Section';
 
-import options from './data/options.json';
+import options from '../data/options.json';
 
 import './App.css';
 
 function App() {
-  const [good, setGood] = useState(0);
+  const [{ good, neutral, bad }, setFeedbackOptions] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
-  const [neutral, setNeutral] = useState(0);
-
-  const [bad, setBad] = useState(0);
-
-  const handleLeaveFeedback = id => {
-    if (id === 1) setGood(value => value + 1);
-    if (id === 2) setNeutral(value => value + 1);
-    if (id === 3) setBad(value => value + 1);
+  const handleLeaveFeedback = ({ target }) => {
+    const { name } = target;
+    setFeedbackOptions(prevState => ({
+      ...prevState,
+      [name]: prevState[name] + 1,
+    }));
   };
 
   const totalValue = () => good + neutral + bad;
 
   const positivePercentage = () => {
-    const total = good + neutral + bad;
+    const total = totalValue();
     const percent = (good * 100) / total;
     return parseFloat(percent.toFixed(1)) || 0;
   };
